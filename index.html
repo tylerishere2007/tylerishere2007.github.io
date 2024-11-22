@@ -17,19 +17,19 @@
         /* Clock container styling */
         .clock-container {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            text-align: right;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
             font-size: 14px;
             background: rgba(255, 255, 255, 0.8);
-            padding: 10px;
-            border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         }
 
-        .clock-container p {
-            margin: 5px 0;
+        .clock {
+            text-align: center;
             font-weight: bold;
+            padding: 10px;
+            border-radius: 8px;
         }
 
         /* Card styling */
@@ -82,77 +82,23 @@
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         }
 
-        /* Comment section */
-        .comments-section {
-            margin-top: 20px;
-            text-align: left;
-            max-width: 400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .comments-section h3 {
-            text-align: center;
-        }
-
-        .comment-form textarea {
-            width: 100%;
-            height: 60px;
+        .language-indicator {
+            font-weight: bold;
+            color: #555;
             margin-bottom: 10px;
-            padding: 8px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-
-        .comment-form button {
-            background-color: #0078d7;
-            color: white;
-            border: none;
-            padding: 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .comment-form button:hover {
-            background-color: #005bb5;
-        }
-
-        .comment-list {
-            margin-top: 10px;
-        }
-
-        .comment-item {
-            margin-bottom: 10px;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-        }
-
-        .reply-form textarea {
-            margin-top: 5px;
-            width: 100%;
-            height: 40px;
-        }
-
-        .reply-list {
-            margin-top: 5px;
-            margin-left: 20px;
-        }
-
-        .reply-item {
-            margin-top: 5px;
-            padding: 5px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
         }
     </style>
 </head>
 <body>
     <div class="clock-container">
-        <p>(If I'm in America) / (アメリカにいる場合)</p>
-        <p id="usa-time">Loading...</p>
-        <p>(If I'm in Japan) / (日本にいる場合)</p>
-        <p id="japan-time">Loading...</p>
+        <div class="clock">
+            <p>(If I'm in America) / (アメリカにいる場合)</p>
+            <p id="usa-time">Loading...</p>
+        </div>
+        <div class="clock">
+            <p>(If I'm in Japan) / (日本にいる場合)</p>
+            <p id="japan-time">Loading...</p>
+        </div>
     </div>
 
     <div class="card">
@@ -167,20 +113,12 @@
         </a>
 
         <div class="bio-section">
+            <div class="language-indicator" id="bio-language">Language: English</div>
             <button onclick="toggleBio()">Toggle Bio</button>
-            <div id="bio-content" class="bio-content" style="display: none;">
+            <div id="bio-content" class="bio-content">
                 <p id="bio-text">I am a high school student and a Roman Catholic. I enjoy studying the Bible and coding as a hobby. My dream is to become an English teacher in Japan, and I plan to attend Osaka Kyoiku University for college.</p>
             </div>
         </div>
-    </div>
-
-    <div class="comments-section">
-        <h3>Comments</h3>
-        <div class="comment-form">
-            <textarea id="new-comment" placeholder="Add a comment..."></textarea>
-            <button onclick="addComment()">Add Comment</button>
-        </div>
-        <div id="comment-list" class="comment-list"></div>
     </div>
 
     <script>
@@ -217,43 +155,7 @@
         function toggleBio() {
             bioInEnglish = !bioInEnglish;
             document.getElementById("bio-text").textContent = bioInEnglish ? bioEnglish : bioJapanese;
-            document.getElementById("bio-content").style.display = "block";
-        }
-
-        // Comment section
-        function addComment() {
-            const commentText = document.getElementById("new-comment").value;
-            if (!commentText) return;
-
-            const commentList = document.getElementById("comment-list");
-
-            const commentItem = document.createElement("div");
-            commentItem.className = "comment-item";
-            commentItem.innerHTML = `
-                <p>${commentText}</p>
-                <div class="reply-form">
-                    <textarea placeholder="Add a reply..."></textarea>
-                    <button onclick="addReply(this)">Reply</button>
-                </div>
-                <div class="reply-list"></div>
-            `;
-
-            commentList.appendChild(commentItem);
-            document.getElementById("new-comment").value = "";
-        }
-
-        function addReply(button) {
-            const replyText = button.previousElementSibling.value;
-            if (!replyText) return;
-
-            const replyList = button.parentElement.nextElementSibling;
-
-            const replyItem = document.createElement("div");
-            replyItem.className = "reply-item";
-            replyItem.innerHTML = `<p>${replyText}</p>`;
-
-            replyList.appendChild(replyItem);
-            button.previousElementSibling.value = "";
+            document.getElementById("bio-language").textContent = "Language: " + (bioInEnglish ? "English" : "Japanese");
         }
     </script>
 </body>
