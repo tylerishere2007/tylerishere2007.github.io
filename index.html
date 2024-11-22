@@ -8,16 +8,35 @@
         /* Body styling */
         body {
             font-family: Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
             background: url('background.gif') no-repeat center center fixed;
             background-size: cover;
+            color: #333;
         }
+
+        /* Clock container styling */
+        .clock-container {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            text-align: right;
+            font-size: 14px;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .clock-container p {
+            margin: 5px 0;
+            font-weight: bold;
+        }
+
         /* Card styling */
         .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             background: rgba(255, 255, 255, 0.85);
             padding: 20px;
             text-align: center;
@@ -25,55 +44,117 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             max-width: 400px;
             width: 100%;
+            margin: 100px auto;
         }
-        /* Profile picture styling */
+
         .card img {
             border-radius: 50%;
             width: 120px;
             height: 120px;
             margin-bottom: 15px;
         }
-        /* Text styling */
-        .card h1 {
-            margin: 10px 0 5px;
-            font-size: 24px;
-            color: #333;
+
+        /* Bio section */
+        .bio-section {
+            margin-top: 20px;
+            text-align: center;
         }
-        .card p {
-            margin: 5px 0;
-            color: #555;
-            font-size: 16px;
+
+        .bio-section button {
+            background-color: #0078d7;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 10px;
         }
-        .card a {
-            color: #0078d7;
-            text-decoration: none;
+
+        .bio-section button:hover {
+            background-color: #005bb5;
         }
-        .card a:hover {
-            text-decoration: underline;
+
+        .bio-content {
+            margin-top: 10px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         }
-        /* GitHub link styling */
-        .github-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 15px;
-            text-decoration: none;
+
+        /* Comment section */
+        .comments-section {
+            margin-top: 20px;
+            text-align: left;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
         }
-        .github-link img {
-            width: 24px;
-            height: 24px;
-            margin-right: 8px;
+
+        .comments-section h3 {
+            text-align: center;
         }
-        .github-link span {
-            font-size: 16px;
-            color: #333;
+
+        .comment-form textarea {
+            width: 100%;
+            height: 60px;
+            margin-bottom: 10px;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
         }
-        .github-link:hover span {
-            text-decoration: underline;
+
+        .comment-form button {
+            background-color: #0078d7;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .comment-form button:hover {
+            background-color: #005bb5;
+        }
+
+        .comment-list {
+            margin-top: 10px;
+        }
+
+        .comment-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .reply-form textarea {
+            margin-top: 5px;
+            width: 100%;
+            height: 40px;
+        }
+
+        .reply-list {
+            margin-top: 5px;
+            margin-left: 20px;
+        }
+
+        .reply-item {
+            margin-top: 5px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
+    <div class="clock-container">
+        <p>(If I'm in America) / (アメリカにいる場合)</p>
+        <p id="usa-time">Loading...</p>
+        <p>(If I'm in Japan) / (日本にいる場合)</p>
+        <p id="japan-time">Loading...</p>
+    </div>
+
     <div class="card">
         <img src="profile-picture.jpg" alt="Profile Picture">
         <h1>Tyler Salli Brown</h1>
@@ -84,7 +165,96 @@
             <img src="github-logo.png" alt="GitHub Logo">
             <span>GitHub</span>
         </a>
+
+        <div class="bio-section">
+            <button onclick="toggleBio()">Toggle Bio</button>
+            <div id="bio-content" class="bio-content" style="display: none;">
+                <p id="bio-text">I am a high school student and a Roman Catholic. I enjoy studying the Bible and coding as a hobby. My dream is to become an English teacher in Japan, and I plan to attend Osaka Kyoiku University for college.</p>
+            </div>
+        </div>
     </div>
+
+    <div class="comments-section">
+        <h3>Comments</h3>
+        <div class="comment-form">
+            <textarea id="new-comment" placeholder="Add a comment..."></textarea>
+            <button onclick="addComment()">Add Comment</button>
+        </div>
+        <div id="comment-list" class="comment-list"></div>
+    </div>
+
+    <script>
+        // Update clocks
+        function updateClocks() {
+            const usaTime = new Date().toLocaleString("en-US", {
+                timeZone: "America/Los_Angeles",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: true
+            });
+
+            const japanTime = new Date().toLocaleString("en-US", {
+                timeZone: "Asia/Tokyo",
+                hour: "2-digit",
+                minute: "2-digit",
+                second: "2-digit",
+                hour12: true
+            });
+
+            document.getElementById("usa-time").textContent = usaTime;
+            document.getElementById("japan-time").textContent = japanTime;
+        }
+
+        setInterval(updateClocks, 1000);
+        updateClocks();
+
+        // Toggle Bio
+        let bioInEnglish = true;
+        const bioEnglish = "I am a high school student and a Roman Catholic. I enjoy studying the Bible and coding as a hobby. My dream is to become an English teacher in Japan, and I plan to attend Osaka Kyoiku University for college.";
+        const bioJapanese = "私は高校生であり、ローマ・カトリック教徒です。趣味として聖書を学び、コーディングを楽しんでいます。私の夢は日本で英語教師になることで、大阪教育大学に進学する予定です。";
+
+        function toggleBio() {
+            bioInEnglish = !bioInEnglish;
+            document.getElementById("bio-text").textContent = bioInEnglish ? bioEnglish : bioJapanese;
+            document.getElementById("bio-content").style.display = "block";
+        }
+
+        // Comment section
+        function addComment() {
+            const commentText = document.getElementById("new-comment").value;
+            if (!commentText) return;
+
+            const commentList = document.getElementById("comment-list");
+
+            const commentItem = document.createElement("div");
+            commentItem.className = "comment-item";
+            commentItem.innerHTML = `
+                <p>${commentText}</p>
+                <div class="reply-form">
+                    <textarea placeholder="Add a reply..."></textarea>
+                    <button onclick="addReply(this)">Reply</button>
+                </div>
+                <div class="reply-list"></div>
+            `;
+
+            commentList.appendChild(commentItem);
+            document.getElementById("new-comment").value = "";
+        }
+
+        function addReply(button) {
+            const replyText = button.previousElementSibling.value;
+            if (!replyText) return;
+
+            const replyList = button.parentElement.nextElementSibling;
+
+            const replyItem = document.createElement("div");
+            replyItem.className = "reply-item";
+            replyItem.innerHTML = `<p>${replyText}</p>`;
+
+            replyList.appendChild(replyItem);
+            button.previousElementSibling.value = "";
+        }
+    </script>
 </body>
 </html>
-
