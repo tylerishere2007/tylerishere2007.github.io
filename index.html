@@ -13,12 +13,12 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background: url('438.gif') no-repeat center center fixed;
-            background-size: cover; /* Ensures the GIF covers the entire background */
+            background: url('background.gif') no-repeat center center fixed;
+            background-size: cover;
         }
         /* Card styling */
         .card {
-            background: rgba(255, 255, 255, 0.85); /* Slight transparency for contrast */
+            background: rgba(255, 255, 255, 0.85);
             padding: 20px;
             text-align: center;
             border-radius: 12px;
@@ -51,15 +51,39 @@
         .card a:hover {
             text-decoration: underline;
         }
+        /* GitHub link styling */
+        .github-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+            text-decoration: none;
+        }
+        .github-link img {
+            width: 24px;
+            height: 24px;
+            margin-right: 8px;
+        }
+        .github-link span {
+            font-size: 16px;
+            color: #333;
+        }
+        .github-link:hover span {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <div class="card">
-        <img src="mary.jpg" alt="Profile Picture">
+        <img src="profile-picture.jpg" alt="Profile Picture">
         <h1>Tyler Salli Brown</h1>
         <p>ティラー・サリ・ブラウン</p>
-        <p>(Email) / (メール) tylersallibrown0@gmail.com</p>
-        <p>(Phone) / (電話) +1 916-884-3228</p>
+        <p>(Email) / (メール) <a href="mailto:tylersallibrown0@gmail.com">tylersallibrown0@gmail.com</a></p>
+        <p>(Phone) / (電話) <a href="tel:+19168843228">+1 916-884-3228</a></p>
+        <a href="https://github.com/tylerishere2007" class="github-link" target="_blank">
+            <img src="github-logo.png" alt="GitHub Logo">
+            <span>GitHub</span>
+        </a>
     </div>
 </body>
 </html>
