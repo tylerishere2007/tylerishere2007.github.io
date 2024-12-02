@@ -3,105 +3,103 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tyler Salli Brown | Business Card</title>
+    <title>Tyler Salli Brown | Digital Card</title>
     <style>
-        /* Body styling */
-        body {
-            font-family: Arial, sans-serif;
+        /* General Reset */
+        * {
             margin: 0;
-            background: #333 url('background.gif') no-repeat center center fixed;
-            background-size: cover;
-            color: #333;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        /* Fallback for background GIF on mobile */
+        body {
+            font-family: Arial, sans-serif;
+            background: url('background.gif') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Fallback for mobile if the GIF doesn't load */
         @media (max-width: 768px) {
             body {
-                background: #333 url('background.gif') no-repeat center center;
-                background-size: contain;
+                background: #333 url('fallback.jpg') no-repeat center center fixed;
+                background-size: cover;
             }
         }
 
-        /* Clock container styling */
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            max-width: 500px;
+            width: 100%;
+            overflow: hidden;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Clock Section */
         .clock-container {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
             display: flex;
-            justify-content: space-between;
-            gap: 10px;
-            padding: 10px;
-            font-size: 12px;
-            z-index: 10;
+            justify-content: space-around;
+            margin-bottom: 20px;
         }
 
         .clock {
-            text-align: center;
-            font-weight: bold;
-            width: 120px;
-            padding: 5px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(0, 0, 0, 0.05);
             border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        /* Adjust clock for mobile */
-        @media (max-width: 768px) {
-            .clock-container {
-                flex-direction: column;
-                gap: 5px;
-                top: auto;
-                bottom: 100%;
-            }
-
-            .clock {
-                width: 90px;
-                font-size: 10px;
-                padding: 5px;
-            }
-        }
-
-        /* Card styling */
-        .card {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.85);
-            padding: 20px;
+            padding: 10px;
+            width: 45%;
             text-align: center;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            max-width: 400px;
-            width: 90%;
-            margin: 100px auto;
+            font-size: 14px;
         }
 
-        .card img {
-            border-radius: 50%;
+        /* Profile Section */
+        .profile {
+            margin: 20px 0;
+        }
+
+        .profile img {
             width: 120px;
             height: 120px;
+            border-radius: 50%;
             margin-bottom: 15px;
         }
 
-        /* Bio section */
+        .profile h1 {
+            font-size: 24px;
+            margin-bottom: 5px;
+        }
+
+        .profile p {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .profile a {
+            color: #0078d7;
+            text-decoration: none;
+        }
+
+        /* Bio Section */
         .bio-section {
             margin-top: 20px;
-            text-align: center;
         }
 
         .bio-section button {
             background-color: #0078d7;
             color: white;
             border: none;
-            padding: 10px;
+            padding: 10px 15px;
             border-radius: 5px;
             cursor: pointer;
             margin-bottom: 10px;
+            font-size: 14px;
         }
 
         .bio-section button:hover {
@@ -109,35 +107,29 @@
         }
 
         .bio-content {
-            margin-top: 10px;
-            padding: 10px;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(0, 0, 0, 0.05);
+            padding: 15px;
             border-radius: 8px;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            text-align: left;
+            font-size: 14px;
         }
 
-        .language-indicator {
-            font-weight: bold;
-            color: #555;
-            margin-bottom: 10px;
-        }
-
-        /* Links section */
+        /* Links Section */
         .links {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            margin-top: 20px;
+            flex-wrap: wrap;
             gap: 15px;
+            margin-top: 20px;
         }
 
         .links a {
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: bold;
+            color: #0078d7;
             display: flex;
             align-items: center;
-            text-decoration: none;
-            color: #0078d7;
-            font-size: 16px;
-            font-weight: bold;
         }
 
         .links a img {
@@ -152,44 +144,45 @@
     </style>
 </head>
 <body>
-    <div class="clock-container">
-        <div class="clock">
-            <p>(If I'm in America) / (アメリカにいる場合)</p>
-            <p id="usa-time">Loading...</p>
+    <div class="container">
+        <div class="clock-container">
+            <div class="clock">
+                <p>America (アメリカ)</p>
+                <p id="usa-time">Loading...</p>
+            </div>
+            <div class="clock">
+                <p>Japan (日本)</p>
+                <p id="japan-time">Loading...</p>
+            </div>
         </div>
-        <div class="clock">
-            <p>(If I'm in Japan) / (日本にいる場合)</p>
-            <p id="japan-time">Loading...</p>
-        </div>
-    </div>
 
-    <div class="card">
-        <img src="profile-picture.jpg" alt="Profile Picture">
-        <h1>Tyler Salli Brown</h1>
-        <p>ティラー・サリ・ブラウン</p>
-        <p>(Email) / (メール) <a href="mailto:tylersallibrown0@gmail.com">tylersallibrown0@gmail.com</a></p>
-        <p>(Phone) / (電話) <a href="tel:+19168843228">+1 916-884-3228</a></p>
+        <div class="profile">
+            <img src="profile-picture.jpg" alt="Profile Picture">
+            <h1>Tyler Salli Brown</h1>
+            <p>ティラー・サリ・ブラウン</p>
+            <p>Email: <a href="mailto:tylersallibrown0@gmail.com">tylersallibrown0@gmail.com</a></p>
+            <p>Phone: <a href="tel:+19168843228">+1 916-884-3228</a></p>
+        </div>
 
         <div class="bio-section">
-            <div class="language-indicator" id="bio-language">Language: English / 言語: 英語</div>
             <button onclick="toggleBio()">Toggle Bio</button>
-            <div id="bio-content" class="bio-content">
+            <div class="bio-content" id="bio-content">
                 <p id="bio-text">I am available to work 4 hours daily, starting from 4:00 PM onwards. I love working with children and have taught and had child care experience. I want to be an English teacher and come with a very compassionate and patient approach to helping young learners. My teaching aspirations, but also my experience in culinary arts and technical work, have helped me strengthen my organizational, communication and problem-solving skills. I am sure that I can complete tasks effectively and with good relations with children and build a positive learning environment. I am currently enrolled in high school and under the age of 18. I'm also a Christian and can work with the piano and have vocal abilities. I also have a good level of Japanese.</p>
             </div>
         </div>
 
         <div class="links">
             <a href="https://github.com/tylerishere2007" target="_blank">
-                <img src="github-logo.png" alt="GitHub Logo"> GitHub
+                <img src="github-logo.png" alt="GitHub">GitHub
             </a>
             <a href="https://www.ebay.com/usr/tysalli_1" target="_blank">
-                <img src="ebay.png" alt="eBay Logo"> eBay
+                <img src="ebay.png" alt="eBay">eBay
             </a>
             <a href="https://independent.academia.edu/TSalli" target="_blank">
-                <img src="academia-logo.png" alt="Academia Logo"> Academia.edu
+                <img src="academia-logo.png" alt="Academia.edu">Academia.edu
             </a>
             <a href="https://profile.indeed.com/?hl=en_US&co=US&from=gnav-jobsearch--indeedmobile" target="_blank">
-                <img src="linkedin-logo.png" alt="Indeed Profile Logo"> Indeed Profile
+                <img src="linkedin-logo.png" alt="Indeed">Indeed Profile
             </a>
         </div>
     </div>
@@ -228,7 +221,6 @@
         function toggleBio() {
             bioInEnglish = !bioInEnglish;
             document.getElementById("bio-text").textContent = bioInEnglish ? bioEnglish : bioJapanese;
-            document.getElementById("bio-language").textContent = "Language: " + (bioInEnglish ? "English / 言語: 英語" : "Japanese / 言語: 日本語");
         }
     </script>
 </body>
