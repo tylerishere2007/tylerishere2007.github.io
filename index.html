@@ -9,30 +9,41 @@
         body {
             font-family: Arial, sans-serif;
             margin: 0;
-            background: url('background.gif') no-repeat center center fixed;
+            background: #333 url('background.gif') no-repeat center center fixed;
             background-size: cover;
             color: #333;
+        }
+
+        /* Fallback for background GIF on mobile */
+        @media (max-width: 768px) {
+            body {
+                background: #333 url('fallback.jpg') no-repeat center center fixed;
+                background-size: cover;
+            }
         }
 
         /* Clock container styling */
         .clock-container {
             position: absolute;
+            top: 0;
             width: 100%;
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
             padding: 10px;
             font-size: 12px;
+            flex-wrap: wrap;
         }
 
         .clock {
             text-align: center;
             font-weight: bold;
-            width: 120px;
-            height: 60px;
-            padding: 5px;
+            width: 140px;
+            height: auto;
+            padding: 10px;
             background: rgba(255, 255, 255, 0.9);
             border-radius: 8px;
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            margin: 5px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -51,7 +62,7 @@
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             max-width: 400px;
             width: 90%;
-            margin: 100px auto;
+            margin: 120px auto;
         }
 
         .card img {
@@ -122,23 +133,6 @@
         .links a:hover {
             text-decoration: underline;
         }
-
-        /* Responsive design */
-        @media (max-width: 768px) {
-            .clock {
-                width: 90px;
-                height: 50px;
-            }
-
-            .card {
-                padding: 15px;
-                margin: 50px auto;
-            }
-
-            .links a {
-                font-size: 14px;
-            }
-        }
     </style>
 </head>
 <body>
@@ -164,7 +158,7 @@
             <div class="language-indicator" id="bio-language">Language: English / 言語: 英語</div>
             <button onclick="toggleBio()">Toggle Bio</button>
             <div id="bio-content" class="bio-content">
-                <p id="bio-text">I am available to work 4 hours daily, starting from 4:00 PM onwards. I love working with children and have taught and had child care experience. I want to be an English teacher and come with a very compassionate and patient approach to helping young learners. My teaching aspirations, but also my experience in culinary arts and technical work, have helped me strengthen my organizational, communication and problem-solving skills. I am sure that I can complete tasks effectively and with good relations with children and build a positive learning environment. I am currently enrolled in high school and under the age of 18. I'm also a Christian and can work with the piano and have vocal abilities. I also have a good level in Japanese.</p>
+                <p id="bio-text">I am available to work 4 hours daily, starting from 4:00 PM onwards. I love working with children and have taught and had child care experience. I want to be an English teacher and come with a very compassionate and patient approach to helping young learners. My teaching aspirations, but also my experience in culinary arts and technical work, have helped me strengthen my organizational, communication and problem-solving skills. I am sure that I can complete tasks effectively and with good relations with children and build a positive learning environment. I am currently enrolled in high school and under the age of 18. I'm also a Christian and can work with the piano and have vocal abilities. I also have a good level of Japanese.</p>
             </div>
         </div>
 
@@ -212,8 +206,8 @@
 
         // Toggle Bio
         let bioInEnglish = true;
-        const bioEnglish = "I am available to work 4 hours daily, starting from 4:00 PM onwards. I love working with children and have taught and had child care experience. I want to be an English teacher and come with a very compassionate and patient approach to helping young learners. My teaching aspirations, but also my experience in culinary arts and technical work, have helped me strengthen my organizational, communication and problem-solving skills. I am sure that I can complete tasks effectively and with good relations with children and build a positive learning environment. I am currently enrolled in high school and under the age of 18. I'm also a Christian and can work with the piano and have vocal abilities. I also have a good level in Japanese.";
-        const bioJapanese = "私は1日4時間、午後4時以降働くことができます。子供たちと働くことが大好きで、教えたり保育の経験があります。私は英語教師になりたいと考えており、若い学習者を支援する際に非常に思いやりがあり、忍耐強いアプローチを取っています。教育への情熱だけでなく、料理や技術作業の経験を通じて、組織力、コミュニケーション力、問題解決能力を強化しました。子供たちと良好な関係を築き、ポジティブな学習環境を作りながら、効果的にタスクを完了できると確信しています。私は現在高校生であり、18歳未満です。私はクリスチャンで、ピアノや歌唱能力もあります。また、日本語での会話力もあります。";
+        const bioEnglish = "I am available to work 4 hours daily, starting from 4:00 PM onwards. I love working with children and have taught and had child care experience. I want to be an English teacher and come with a very compassionate and patient approach to helping young learners. My teaching aspirations, but also my experience in culinary arts and technical work, have helped me strengthen my organizational, communication and problem-solving skills. I am sure that I can complete tasks effectively and with good relations with children and build a positive learning environment. I am currently enrolled in high school and under the age of 18. I'm also a Christian and can work with the piano and have vocal abilities. I also have a good level of Japanese.";
+        const bioJapanese = "私は1日4時間、午後4時以降働くことができます。子供たちと働くことが大好きで、教えたり保育の経験があります。私は英語教師になりたいと考えており、若い学習者を支援する際に非常に思いやりがあり、忍耐強いアプローチを取っています。教育への情熱だけでなく、料理や技術作業の経験を通じて、組織力、コミュニケーション力、問題解決能力を強化しました。子供たちと良好な関係を築き、ポジティブな学習環境を作りながら、効果的にタスクを完了できると確信しています。私は現在高校生であり、18歳未満です。私はクリスチャンで、ピアノや歌唱能力もあります。また、日本語での良い会話力もあります。";
 
         function toggleBio() {
             bioInEnglish = !bioInEnglish;
