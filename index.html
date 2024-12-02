@@ -50,7 +50,7 @@
             border-radius: 12px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             max-width: 400px;
-            width: 100%;
+            width: 90%;
             margin: 100px auto;
         }
 
@@ -98,9 +98,10 @@
         /* Links section */
         .links {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             margin-top: 20px;
-            gap: 20px;
+            gap: 15px;
         }
 
         .links a {
@@ -122,10 +123,21 @@
             text-decoration: underline;
         }
 
-        .separator {
-            font-size: 16px;
-            font-weight: bold;
-            color: #555;
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .clock {
+                width: 90px;
+                height: 50px;
+            }
+
+            .card {
+                padding: 15px;
+                margin: 50px auto;
+            }
+
+            .links a {
+                font-size: 14px;
+            }
         }
     </style>
 </head>
@@ -160,17 +172,14 @@
             <a href="https://github.com/tylerishere2007" target="_blank">
                 <img src="github-logo.png" alt="GitHub Logo"> GitHub
             </a>
-            <span class="separator">|</span>
             <a href="https://www.ebay.com/usr/tysalli_1" target="_blank">
                 <img src="ebay.png" alt="eBay Logo"> eBay
             </a>
-            <span class="separator">|</span>
             <a href="https://independent.academia.edu/TSalli" target="_blank">
                 <img src="academia-logo.png" alt="Academia Logo"> Academia.edu
             </a>
-            <span class="separator">|</span>
-            <a href="https://www.indeed.com/q-16-year-old-l-lincoln,-ca-jobs.html?vjk=5a71aa1c6450e55b" target="_blank">
-                <img src="linkedin-logo.png" alt="LinkedIn Logo"> LinkedIn
+            <a href="https://profile.indeed.com/?hl=en_US&co=US&from=gnav-jobsearch--indeedmobile" target="_blank">
+                <img src="linkedin-logo.png" alt="Indeed Profile Logo"> Indeed Profile
             </a>
         </div>
     </div>
