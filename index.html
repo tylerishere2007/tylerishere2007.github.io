@@ -85,13 +85,32 @@
             color: #0078d7;
             text-decoration: none;
         }
+        
+        .status {
+            margin-top: 10px;
+            display: inline-block;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        
+        .available {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .busy {
+            background-color: #f44336;
+            color: white;
+        }
 
-        /* Bio Section */
-        .bio-section {
+        /* Q&A Section */
+        .qa-section {
             margin-top: 20px;
         }
 
-        .bio-section button {
+        .qa-section button {
             background-color: #0078d7;
             color: white;
             border: none;
@@ -102,16 +121,25 @@
             font-size: 14px;
         }
 
-        .bio-section button:hover {
+        .qa-section button:hover {
             background-color: #005bb5;
         }
 
-        .bio-content {
+        .qa-content {
             background: rgba(0, 0, 0, 0.05);
             padding: 15px;
             border-radius: 8px;
             text-align: left;
             font-size: 14px;
+        }
+        
+        .qa-item {
+            margin-bottom: 15px;
+        }
+        
+        .qa-item h3 {
+            margin-bottom: 5px;
+            color: #0078d7;
         }
 
         /* Links Section */
@@ -141,48 +169,82 @@
         .links a:hover {
             text-decoration: underline;
         }
+        
+        /* Language Toggle */
+        .language-toggle {
+            margin-bottom: 15px;
+        }
+        
+        .language-btn {
+            background-color: #f0f0f0;
+            border: 1px solid #ddd;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 0 5px;
+        }
+        
+        .language-btn.active {
+            background-color: #0078d7;
+            color: white;
+            border-color: #0078d7;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="language-toggle">
+            <button class="language-btn active" id="en-btn" onclick="switchLanguage('en')">English</button>
+            <button class="language-btn" id="jp-btn" onclick="switchLanguage('jp')">日本語</button>
+        </div>
+        
         <div class="clock-container">
             <div class="clock">
-                <p>America (アメリカ)</p>
+                <p id="america-label">America</p>
                 <p id="usa-time">Loading...</p>
             </div>
             <div class="clock">
-                <p>Japan (日本)</p>
+                <p id="japan-label">Japan</p>
                 <p id="japan-time">Loading...</p>
             </div>
         </div>
 
         <div class="profile">
             <img src="profile-picture.jpg" alt="Profile Picture">
-            <h1>Tyler Salli Brown</h1>
-            <p>ティラー・サリ・ブラウン</p>
-            <p>Email: <a href="mailto:tylersallibrown0@gmail.com">tylersallibrown0@gmail.com</a></p>
-            <p>Phone: <a href="tel:+19168843228">+1 916-884-3228</a></p>
+            <h1 id="name">Tyler Salli Brown</h1>
+            <p id="email-label">Email: <a href="mailto:tylersallibrown0@gmail.com">tylersallibrown0@gmail.com</a></p>
+            <p id="phone-label">Phone: <a href="tel:+19168843228">+1 916-884-3228</a></p>
+            <div class="status available" id="status" onclick="toggleStatus()">
+                <span id="status-text">Currently Available</span>
+            </div>
         </div>
 
-        <div class="bio-section">
-            <button onclick="toggleBio()">Toggle Bio</button>
-            <div class="bio-content" id="bio-content">
-                <p id="bio-text">I am available to work 4 hours daily, starting from 4:00 PM onwards. I love working with children and have taught and had child care experience. I want to be an English teacher and come with a very compassionate and patient approach to helping young learners. My teaching aspirations, but also my experience in culinary arts and technical work, have helped me strengthen my organizational, communication and problem-solving skills. I am sure that I can complete tasks effectively and with good relations with children and build a positive learning environment. I am currently enrolled in high school and under the age of 18. I'm also a Christian and can work with the piano and have vocal abilities. I also have a good level of Japanese.</p>
+        <div class="qa-section">
+            <button onclick="toggleQA()" id="toggle-qa-btn">Toggle Q&A</button>
+            <div class="qa-content" id="qa-content">
+                <div class="qa-item">
+                    <h3 id="q1">When are you available to work?</h3>
+                    <p id="a1">Depends when you're hiring me. For in-person from June to August, I'm extremely flexible with time. Outside that range, I'm available 4PM-11PM. If the work is remote, I'm pretty flexible all year, however I want to note I still have schooling online.</p>
+                </div>
+                <div class="qa-item">
+                    <h3 id="q2">What is your end goal in life?</h3>
+                    <p id="a2">My goal is to go to college in Japan. I will be majoring in Software Engineering and Christian Studies. I will use this knowledge to program software. On the side I will do music.</p>
+                </div>
             </div>
         </div>
 
         <div class="links">
             <a href="https://github.com/tylerishere2007" target="_blank">
-                <img src="github-logo.png" alt="GitHub">GitHub Profile
+                <img src="github-logo.png" alt="GitHub"><span id="github-text">GitHub Profile</span>
             </a>
             <a href="https://www.ebay.com/usr/tysalli_1" target="_blank">
-                <img src="ebay.png" alt="eBay">eBay Profile
+                <img src="ebay.png" alt="eBay"><span id="ebay-text">eBay Profile</span>
             </a>
             <a href="https://independent.academia.edu/TSalli" target="_blank">
-                <img src="academia-logo.png" alt="Academia.edu">Academia Profile
+                <img src="academia-logo.png" alt="Academia.edu"><span id="academia-text">Academia Profile</span>
             </a>
             <a href="https://profile.indeed.com/p/tylers-r1r0g4p" target="_blank">
-                <img src="linkedin-logo.png" alt="Indeed">Indeed Profile
+                <img src="linkedin-logo.png" alt="Indeed"><span id="indeed-text">Indeed Profile</span>
             </a>
         </div>
     </div>
@@ -213,14 +275,98 @@
         setInterval(updateClocks, 1000);
         updateClocks();
 
-        // Toggle Bio
-        let bioInEnglish = true;
-        const bioEnglish = "I am available to work 4 hours daily, starting from 4:00 PM onwards. I love working with children and have taught and had child care experience. I want to be an English teacher and come with a very compassionate and patient approach to helping young learners. My teaching aspirations, but also my experience in culinary arts and technical work, have helped me strengthen my organizational, communication and problem-solving skills. I am sure that I can complete tasks effectively and with good relations with children and build a positive learning environment. I am currently enrolled in high school and under the age of 18. I'm also a Christian and can work with the piano and have vocal abilities. I also have a good level of Japanese.";
-        const bioJapanese = "私は1日4時間、午後4時以降働くことができます。子供たちと働くことが大好きで、教えたり保育の経験があります。私は英語教師になりたいと考えており、若い学習者を支援する際に非常に思いやりがあり、忍耐強いアプローチを取っています。教育への情熱だけでなく、料理や技術作業の経験を通じて、組織力、コミュニケーション力、問題解決能力を強化しました。子供たちと良好な関係を築き、ポジティブな学習環境を作りながら、効果的にタスクを完了できると確信しています。私は現在高校生であり、18歳未満です。私はクリスチャンで、ピアノや歌唱能力もあります。また、日本語での良い会話力もあります。";
-
-        function toggleBio() {
-            bioInEnglish = !bioInEnglish;
-            document.getElementById("bio-text").textContent = bioInEnglish ? bioEnglish : bioJapanese;
+        // Toggle Q&A
+        function toggleQA() {
+            const qaContent = document.getElementById("qa-content");
+            qaContent.style.display = qaContent.style.display === "none" ? "block" : "none";
+        }
+        
+        // Toggle Status
+        function toggleStatus() {
+            const statusDiv = document.getElementById("status");
+            const statusText = document.getElementById("status-text");
+            
+            if (statusDiv.classList.contains("available")) {
+                statusDiv.classList.remove("available");
+                statusDiv.classList.add("busy");
+                statusText.textContent = currentLanguage === 'en' ? "Currently Busy" : "現在忙しい";
+            } else {
+                statusDiv.classList.remove("busy");
+                statusDiv.classList.add("available");
+                statusText.textContent = currentLanguage === 'en' ? "Currently Available" : "現在利用可能";
+            }
+        }
+        
+        // Language switching
+        let currentLanguage = 'en';
+        
+        const translations = {
+            'en': {
+                'america-label': 'America',
+                'japan-label': 'Japan',
+                'name': 'Tyler Salli Brown',
+                'email-label': 'Email: <a href="mailto:tylersallibrown0@gmail.com">tylersallibrown0@gmail.com</a>',
+                'phone-label': 'Phone: <a href="tel:+19168843228">+1 916-884-3228</a>',
+                'status-available': 'Currently Available',
+                'status-busy': 'Currently Busy',
+                'toggle-qa-btn': 'Toggle Q&A',
+                'q1': 'When are you available to work?',
+                'a1': 'Depends when you\'re hiring me. For in-person from June to August, I\'m extremely flexible with time. Outside that range, I\'m available 4PM-11PM. If the work is remote, I\'m pretty flexible all year, however I want to note I still have schooling online.',
+                'q2': 'What is your end goal in life?',
+                'a2': 'My goal is to go to college in Japan. I will be majoring in Software Engineering and Christian Studies. I will use this knowledge to program software. On the side I will do music.',
+                'github-text': 'GitHub Profile',
+                'ebay-text': 'eBay Profile',
+                'academia-text': 'Academia Profile',
+                'indeed-text': 'Indeed Profile'
+            },
+            'jp': {
+                'america-label': 'アメリカ',
+                'japan-label': '日本',
+                'name': 'ティラー・サリ・ブラウン',
+                'email-label': 'メール: <a href="mailto:tylersallibrown0@gmail.com">tylersallibrown0@gmail.com</a>',
+                'phone-label': '電話: <a href="tel:+19168843228">+1 916-884-3228</a>',
+                'status-available': '現在利用可能',
+                'status-busy': '現在忙しい',
+                'toggle-qa-btn': 'Q&A表示切替',
+                'q1': '仕事はいつ可能ですか？',
+                'a1': '雇用時期によります。6月から8月の対面の場合は、非常に柔軟に対応できます。それ以外の期間では、午後4時から11時まで可能です。リモートの場合は一年中柔軟に対応できますが、オンライン授業もあることにご注意ください。',
+                'q2': '人生の最終目標は何ですか？',
+                'a2': '私の目標は日本の大学に進学することです。ソフトウェアエンジニアリングとキリスト教学を専攻し、その知識を活かしてソフトウェアのプログラミングをします。また、副業として音楽活動も行います。',
+                'github-text': 'GitHubプロフィール',
+                'ebay-text': 'eBayプロフィール',
+                'academia-text': 'Academiaプロフィール',
+                'indeed-text': 'Indeedプロフィール'
+            }
+        };
+        
+        function switchLanguage(lang) {
+            currentLanguage = lang;
+            
+            // Update button states
+            document.getElementById('en-btn').classList.toggle('active', lang === 'en');
+            document.getElementById('jp-btn').classList.toggle('active', lang === 'jp');
+            
+            // Update all translated elements
+            for (const [id, text] of Object.entries(translations[lang])) {
+                const element = document.getElementById(id);
+                if (element) {
+                    if (id.includes('label') || id === 'email-label' || id === 'phone-label') {
+                        element.innerHTML = text;
+                    } else {
+                        element.textContent = text;
+                    }
+                }
+            }
+            
+            // Update status text specifically since it depends on current status
+            const statusDiv = document.getElementById("status");
+            const statusText = document.getElementById("status-text");
+            
+            if (statusDiv.classList.contains("available")) {
+                statusText.textContent = translations[lang]['status-available'];
+            } else {
+                statusText.textContent = translations[lang]['status-busy'];
+            }
         }
     </script>
 </body>
