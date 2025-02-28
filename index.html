@@ -92,7 +92,6 @@
             padding: 5px 10px;
             border-radius: 5px;
             font-weight: bold;
-            cursor: pointer;
         }
         
         .available {
@@ -108,21 +107,6 @@
         /* Q&A Section */
         .qa-section {
             margin-top: 20px;
-        }
-
-        .qa-section button {
-            background-color: #0078d7;
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            margin-bottom: 10px;
-            font-size: 14px;
-        }
-
-        .qa-section button:hover {
-            background-color: #005bb5;
         }
 
         .qa-content {
@@ -214,13 +198,20 @@
             <h1 id="name">Tyler Salli Brown</h1>
             <p id="email-label">Email: <a href="mailto:tylersallibrown0@gmail.com">tylersallibrown0@gmail.com</a></p>
             <p id="phone-label">Phone: <a href="tel:+19168843228">+1 916-884-3228</a></p>
-            <div class="status available" id="status" onclick="toggleStatus()">
+            
+            <!-- MODIFY THIS SECTION TO CHANGE YOUR STATUS -->
+            <!-- Options: 
+                 1. To show "Currently Available": Keep class="status available" and id="status-text">Currently Available</span>
+                 2. To show "Currently Busy": Change to class="status busy" and id="status-text">Currently Busy</span>
+            -->
+            <div class="status available" id="status">
                 <span id="status-text">Currently Available</span>
             </div>
+            <!-- END OF STATUS SECTION -->
+            
         </div>
 
         <div class="qa-section">
-            <button onclick="toggleQA()" id="toggle-qa-btn">Toggle Q&A</button>
             <div class="qa-content" id="qa-content">
                 <div class="qa-item">
                     <h3 id="q1">When are you available to work?</h3>
@@ -274,28 +265,6 @@
 
         setInterval(updateClocks, 1000);
         updateClocks();
-
-        // Toggle Q&A
-        function toggleQA() {
-            const qaContent = document.getElementById("qa-content");
-            qaContent.style.display = qaContent.style.display === "none" ? "block" : "none";
-        }
-        
-        // Toggle Status
-        function toggleStatus() {
-            const statusDiv = document.getElementById("status");
-            const statusText = document.getElementById("status-text");
-            
-            if (statusDiv.classList.contains("available")) {
-                statusDiv.classList.remove("available");
-                statusDiv.classList.add("busy");
-                statusText.textContent = currentLanguage === 'en' ? "Currently Busy" : "現在忙しい";
-            } else {
-                statusDiv.classList.remove("busy");
-                statusDiv.classList.add("available");
-                statusText.textContent = currentLanguage === 'en' ? "Currently Available" : "現在利用可能";
-            }
-        }
         
         // Language switching
         let currentLanguage = 'en';
@@ -309,7 +278,6 @@
                 'phone-label': 'Phone: <a href="tel:+19168843228">+1 916-884-3228</a>',
                 'status-available': 'Currently Available',
                 'status-busy': 'Currently Busy',
-                'toggle-qa-btn': 'Toggle Q&A',
                 'q1': 'When are you available to work?',
                 'a1': 'Depends when you\'re hiring me. For in-person from June to August, I\'m extremely flexible with time. Outside that range, I\'m available 4PM-11PM. If the work is remote, I\'m pretty flexible all year, however I want to note I still have schooling online.',
                 'q2': 'What is your end goal in life?',
@@ -327,7 +295,6 @@
                 'phone-label': '電話: <a href="tel:+19168843228">+1 916-884-3228</a>',
                 'status-available': '現在利用可能',
                 'status-busy': '現在忙しい',
-                'toggle-qa-btn': 'Q&A表示切替',
                 'q1': '仕事はいつ可能ですか？',
                 'a1': '雇用時期によります。6月から8月の対面の場合は、非常に柔軟に対応できます。それ以外の期間では、午後4時から11時まで可能です。リモートの場合は一年中柔軟に対応できますが、オンライン授業もあることにご注意ください。',
                 'q2': '人生の最終目標は何ですか？',
@@ -358,7 +325,7 @@
                 }
             }
             
-            // Update status text specifically since it depends on current status
+            // Update status text specifically based on current status class
             const statusDiv = document.getElementById("status");
             const statusText = document.getElementById("status-text");
             
